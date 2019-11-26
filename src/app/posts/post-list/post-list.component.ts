@@ -1,3 +1,4 @@
+import { PostsService } from './../posts.service';
 import { Post } from './../posts.model';
 import { Component, OnInit, Input } from '@angular/core';
 
@@ -29,9 +30,10 @@ export class PostListComponent implements OnInit {
 
   @Input() posts: Post[] = [];
 
-  constructor() { }
-
+  constructor(public postsService :PostsService) { }
+  // public keyword makes an  object automatic
   ngOnInit() {
+
   }
 
 }
