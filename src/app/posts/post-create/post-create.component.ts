@@ -1,3 +1,4 @@
+import { PostsService } from './../posts.service';
 import { Post } from './../posts.model';
 import { Component, OnInit, EventEmitter , Output } from '@angular/core';
 import { NgForm } from '@angular/forms';
@@ -11,29 +12,25 @@ import { NgForm } from '@angular/forms';
 export class PostCreateComponent implements OnInit {
   enteredContent = '';
   enteredTitle = '' ;
-  @Output() postAdded = new EventEmitter<Post>();
 
-  constructor() { }
+  constructor( public postService: PostsService) { }
 
   ngOnInit() {
   }
 
   onAddPost(form: NgForm) {
-    //console.log(form.invalid);
+    console.log(form);
     if (form.invalid ) {
-      return; // i.e. dont submit, just return function
+      console.log("invalid");
+      return;
     }
+    this.postService.addPost({
+      id : null ,
+      title : form.value.title,
+      content : form.value.content,
+    });
 
-
-    const post: Post = {
-        // title   : this.enteredTitle,  // for ngModel [()]
-        title : form.value.title,
-
-        // content : this.enteredContent
-        content : form.value.conent,
-      };
-    this.postAdded.emit(post);
+    form.resetForm();  // ng form: template driven
   }
-
 }
 

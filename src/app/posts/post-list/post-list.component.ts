@@ -1,39 +1,33 @@
 import { PostsService } from './../posts.service';
 import { Post } from './../posts.model';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-post-list',
   templateUrl: './post-list.component.html',
   styleUrls: ['./post-list.component.scss']
 })
-export class PostListComponent implements OnInit {
+export class PostListComponent implements OnInit , OnDestroy {
 
-//  @Input() posts = [
-//     {
-//       title : 'angular',
-//       content : 'angular material',
-//     },
-//     {
-//       title : 'react',
-//       content : 'react native',
-//     },
-//     {
-//       title : 'nodejs',
-//       content : 'backend',
-//     },
-//     {
-//       title : 'css',
-//       content : 'scss',
-//     }
-//   ];
-
-  @Input() posts: Post[] = [];
-
-  constructor(public postsService :PostsService) { }
+  posts: Post[] = [];
+  private postSub: Subscription;
+  constructor(public postsService: PostsService) { }
   // public keyword makes an  object automatic
-  ngOnInit() {
 
+  ngOnInit() {
+    this.postsService.getPosts();
+    this.postSub = this.postsService.getUpdatedPostListener().subscribe(
+      (posts: Post[]) => {
+        this.posts = posts;
+      }
+    );
+    console.log('oninit list' + this.posts);
+  }
+
+  ngOnDestroy(): void {
+    // throw new Error("Method not implemented.");
+    this.postSub.unsubscribe();
   }
 
 }

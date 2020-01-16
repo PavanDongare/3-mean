@@ -1,34 +1,34 @@
 <form #postForm="ngForm" (ngSubmit)="onAddPost(postForm)" >
-  <mat-form-field>
-    <input
-        matInput
-        type="text"
-        name="title"
-        ngModel
-        required
-        #title= "ngModel"
-    >
-        <mat-error *ngIf="title.invalid"> please enter correct title </mat-error>
-
-  </mat-form-field>
-
+  <!-- ngForm - creates form object  -->
   <mat-card>
+    <mat-form-field>
+          <input
+              matInput
+              type="text"
+              name="title"
+              ngModel
+              required
+              placeholder="Post Title"
+              #title= "ngModel"
+          >
+              <mat-error *ngIf="title.invalid"> please enter correct title </mat-error>
+<!-- ngModel attaches value to the model -->
+    </mat-form-field>
+
     <mat-form-field>
       <textarea
         matInput
-        rows="6"
+        rows="3"
         name="content"
         ngModel
         required
         #content="ngModel"
+        placeholder="Post Content"
       ></textarea>
+      <!-- ="ngModel" 2 way binding -->
       <mat-error *ngIf="content.invalid"> please enter correct content </mat-error>
-
-
       </mat-form-field>
   </mat-card>
-
-
   <hr>
 
   <button
