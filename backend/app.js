@@ -1,9 +1,15 @@
 const express = require('express');
 const bodyParser = require("body-parser");
+
 const app = express();
+const mongoose = require('mongoose');
+mongoose.connect("mongodb+srv://pavan:isg39Vqal4YvodDJ@cluster0-rcm2k.mongodb.net/test?retryWrites=true&w=majority")
 
 
+const Post = require("./models/post");
 
+
+// isg39Vqal4YvodDJ
 app.use(bodyParser.json());
 
 app.use( (req,res,next)=>{
@@ -29,8 +35,13 @@ app.use(function(req, res, next) {
 
 
 app.post("/api/posts", (req,res,next) => {
-  const post = req.body;
-   console.log(post);// ok and resouce
+
+    const post = Post({
+      title: req.body.title ,
+      content: req.body.content
+
+   });
+   console.log(post);
    res.status(201).json({
      message: "post added successfully"
    });
