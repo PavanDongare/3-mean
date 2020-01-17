@@ -18,9 +18,9 @@ export class PostsService {
     // return this.posts; wrong because posts can be mistakenly edited somwhere
     //return ([...this.posts]);
 
-    return this.http.get<{message : string ,post: Post[]}>("http://localhost:3000/api/posts").subscribe(
+    return this.http.get<{message : string ,posts: Post[]}>("http://localhost:3000/api/posts").subscribe(
       (response) => {
-        this.posts =  response.post ;
+        this.posts =  response.posts ;
         this.updatedPost.next([...this.posts]);
       }
     );
@@ -30,10 +30,18 @@ export class PostsService {
     return this.updatedPost.asObservable();
   }
 
+
+
   addPost( post: Post ) {
-    this.posts.push(post);
-    console.log(' added ' + JSON.stringify(this.posts));
-    this.updatedPost.next([...this.posts]);
+    this.http.post<{message : string}> ("http://localhost:3000/api/posts",post)
+      .subscribe( (response)=>{
+        console.log(response);
+        this.posts.push(post);
+        console.log(' added ' + JSON.stringify(this.posts));
+        this.updatedPost.next([...this.posts]);
+
+      }  );
+
   }
 
 }
