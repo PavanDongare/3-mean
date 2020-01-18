@@ -2,25 +2,30 @@ import { Post } from './posts.model';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PostsService {
-
   constructor( private http: HttpClient) { }
-
   private posts: Post[] = [];
   private updatedPost = new Subject < Post[]> ();
 
   getPosts() {
-    // console.log([...this.posts]); // won't help because updates are on original array and this is copy of initial
-    // return this.posts; wrong because posts can be mistakenly edited somwhere
-    //return ([...this.posts]);
-
-    return this.http.get<{message : string ,posts: Post[]}>("http://localhost:3000/api/posts").subscribe(
-      (response) => {
-        this.posts =  response.posts ;
+    return this.http.get<{message : string ,posts: any }>("http://localhost:3000/api/posts")
+    .pipe( map( postData  => {
+      return postData.posts.map( post => {
+        return {
+          title   :  post.title,
+          content : post.content,
+          id      :  post._id,
+        };
+      });
+    }))
+    .subscribe(
+      (transformedPost) => {
+        this.posts =  transformedPost ;
         this.updatedPost.next([...this.posts]);
       }
     );
@@ -30,18 +35,22 @@ export class PostsService {
     return this.updatedPost.asObservable();
   }
 
-
+  deletePost(postId: string ){
+     console.log( ' deleting ' + postId);
+     this.http.delete('http://localhost:3000/api/posts/' + postId).
+     subscribe( () => {
+       console.log('deleted');
+       const updatedPost =  this.posts.filter(posts =>  posts.id !== postId );
+       this.posts = updatedPost ;
+       this.updatedPost.next([...this.posts]);
+     });
+  }
 
   addPost( post: Post ) {
     this.http.post<{message : string}> ("http://localhost:3000/api/posts",post)
       .subscribe( (response)=>{
-        console.log(response);
         this.posts.push(post);
-        console.log(' added ' + JSON.stringify(this.posts));
         this.updatedPost.next([...this.posts]);
-
       }  );
-
+    }
   }
-
-}
