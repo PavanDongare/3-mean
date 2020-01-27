@@ -55,4 +55,12 @@ export class PostsService {
         this.updatedPost.next([...this.posts]);
       }  );
     }
+
+
+  getPost(postId: string ) {
+    return {...this.posts.find(post => {post.id === postId})};
   }
+  //____________________________________________________________
+  }
+
+
