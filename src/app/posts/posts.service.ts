@@ -57,10 +57,9 @@ export class PostsService {
     }
 
 
-  getPost(postId: string ) {
-    return {...this.posts.find(post => {post.id === postId})};
-  }
-  //____________________________________________________________
+    getPost(postId: string ) {
+      return { ... this.posts.find(p => p.id === postId) }; // copy of post
+    }
   }
 
 
