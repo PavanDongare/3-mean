@@ -56,11 +56,16 @@ app.post("/api/posts", (req,res,next) => {
       title: req.body.title ,
       content: req.body.content
    });
-   post.save(); // provided by mongoose
-   console.log(post);
-   res.status(201).json({
-     message: "post added successfully"
-   });
+   post.save().then(
+     result => {
+      console.log(post);
+      res.status(201).json({
+        message: "post added successfully",
+        PostId: result._id
+      });
+     }
+   )  ; // provided by mongoose
+
 });
 
 app.get("/api/posts",(req,res,next)=> {

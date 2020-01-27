@@ -1,3 +1,30 @@
-<mat-toolbar
-  color="primary"
-> Social Network </mat-toolbar>
+<mat-toolbar color="primary">
+
+  <span>
+    <ul>
+      <li>
+        <a routerLink="/"> my messages </a>
+      </li>
+    </ul>
+
+  </span>
+
+  <span class="spacer"> </span>
+
+  <ul>
+    <li>
+      <a
+          mat-button
+          routerLink="/create"
+          routerLinkActive="mat-accent"
+      >
+          create post
+      </a>
+    </li>
+
+  </ul>
+
+
+
+
+</mat-toolbar>
