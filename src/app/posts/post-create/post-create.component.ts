@@ -37,16 +37,27 @@ export class PostCreateComponent implements OnInit {
   }
 
   onAddPost(form: NgForm) {
-    console.log(form);
     if (form.invalid ) {
       console.log(' invalid ');
       return;
     }
-    this.postService.addPost({
-      id : null ,
-      title : form.value.title,
-      content : form.value.content,
-    });
+
+    if(this.mode==='create'){
+      this.postService.addPost(
+        { id : null ,
+          title : form.value.title,
+          content : form.value.content,
+        });
+        console.log(form.value.content , form.value.title);
+    } else if ( this.mode === 'edit') {
+      this.postService.editPost({
+        id: this.postId,
+        title : form.value.title,
+        content : form.value.content,
+      });
+      console.log(form.value.content , form.value.title);
+    }
+
 
     form.resetForm();  // ng form: template driven
   }

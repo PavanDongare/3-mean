@@ -87,11 +87,15 @@ app.delete("/api/posts/:id",(req,res,next)=>{
 })
 
 app.put("/api/edit/:id",(req,res,next)=>{
-  const Post = new Post( {
-    title : req.body.title,
-    content : req.body.content
+  const post = new Post({   // object created with mongoose
+    title: req.body.title ,
+    content: req.body.content
+ });
+
+
+  Post.updateOne({_id:req.params.id},post).then(result=>{
+    result.status(200).json({message:'updated'});
   });
-  Post.updateOne({_id:req.params.id},Post).then();
 })
 
 

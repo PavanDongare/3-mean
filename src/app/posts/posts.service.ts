@@ -47,13 +47,21 @@ export class PostsService {
   }
 
   addPost( post: Post ) {
-    this.http.post<{message : string, PostId: string}> ("http://localhost:3000/api/posts",post)
+    this.http.post<{message : string, PostId: string}> ('http://localhost:3000/api/posts',post)
       .subscribe( (response)=>{
         post.id = response.PostId;
         this.posts.push(post);
         console.log(post);
         this.updatedPost.next([...this.posts]);
       }  );
+    }
+
+    editPost(post : Post){
+      this.http.put('http://localhost:3000/api/edit/' + post.id, post).subscribe(
+        (resoponse=>{
+          console.log('edit response');
+        })
+      );
     }
 
 
