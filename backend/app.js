@@ -88,6 +88,7 @@ app.delete("/api/posts/:id",(req,res,next)=>{
 
 app.put("/api/edit/:id",(req,res,next)=>{
   const post = new Post({   // object created with mongoose
+    id: req.body.title,
     title: req.body.title ,
     content: req.body.content
  });
