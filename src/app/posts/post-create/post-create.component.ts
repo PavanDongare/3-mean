@@ -16,16 +16,19 @@ export class PostCreateComponent implements OnInit {
   postId = '';
   mode: string;
   editPost: Post;
+  spinner = false;
 
 
   constructor( public postService: PostsService, private activeRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.spinner = false;
     this.activeRoute.paramMap.subscribe(
       (paramMap: ParamMap) => {
         if (paramMap.has('postId')) {
           this.postId = paramMap.get('postId');
-          this.editPost = this.postService.getPost(this.postId);
+          this.spinner =  true;
+          this.editPost = this.postService.getPost(this.postId) ;
           this.mode = 'edit';
 
         } else {

@@ -18,8 +18,9 @@ mongoose.connect('mongodb+srv://pavan:isg39Vqal4YvodDJ@cluster0-rcm2k.mongodb.ne
 .catch(()=>{
   console.log("connection failed")
 })
-// posts saved as docs
 
+const PostRoutes = require("./routes/posts"); // import routes object
+// posts saved as docs
 const Post = require("./models/post");
 
 
@@ -48,61 +49,9 @@ app.use(function(req, res, next) {
 
 
 
-app.post("/api/posts", (req,res,next) => {
-    Post.find().then( documents => {
-      console.log(documents);
-    })
-    const post = new Post({   // object created with mongoose
-      title: req.body.title ,
-      content: req.body.content
-   });
-   post.save().then(
-     result => {
-      console.log(post);
-      res.status(201).json({
-        message: "post added successfully",
-        PostId: result._id
-      });
-     }
-   )  ; // provided by mongoose
-
-});
-
-app.get("/api/posts",(req,res,next)=> {
-  Post.find().then(  documents=> {
-    console.log(documents);
-    res.status(200).json( {
-      message: " get successful",
-      posts: documents
-    })
-  } )
-})
-
-app.delete("/api/posts/:id",(req,res,next)=>{
-  console.log("delete called "+req.params.id);
-  Post.deleteOne({_id:req.params.id}).then(result=>{
-    console.log("result"+result);
-  });
-  res.status(200).json({message:"post deleted"});
-})
-
-app.put("/api/edit/:id",(req,res,next)=>{
-  const post = new Post({   // object created with mongoose
-    id: req.body.title,
-    title: req.body.title ,
-    content: req.body.content
- });
-
-
-  Post.updateOne({_id:req.params.id},post).then(result=>{
-    result.status(200).json({message:'updated'});
-  });
-})
-
+app.use("/api/posts",PostRoutes);
 
 module.exports = app;
-
-
 
 // $ lsof -i tcp:3000
 // $ kill -9 PID
