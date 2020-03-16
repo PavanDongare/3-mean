@@ -28,7 +28,17 @@ export class PostCreateComponent implements OnInit {
         if (paramMap.has('postId')) {
           this.postId = paramMap.get('postId');
           this.spinner =  true;
-          this.editPost = this.postService.getPost(this.postId) ;
+          this.postService.getPost(this.postId).subscribe(
+            postByID =>
+            {
+              this.editPost =
+              {
+                 id : postByID._id,
+                 title : postByID.title,
+                 content :postByID.content
+              }
+            }
+          ) ;
           this.mode = 'edit';
 
         } else {
@@ -53,11 +63,11 @@ export class PostCreateComponent implements OnInit {
         });
         console.log(form.value.content , form.value.title);
     } else if ( this.mode === 'edit') {
-      this.postService.editPost({
+        this.postService.editPost({
         id: this.postId,
         title : form.value.title,
         content : form.value.content,
-      });
+      })  ;
       console.log(form.value.content , form.value.title);
     }
 

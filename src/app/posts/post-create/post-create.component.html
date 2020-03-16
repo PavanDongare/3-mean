@@ -1,4 +1,4 @@
-<mat-spinner *ngIf="spinner">   </mat-spinner>
+
 <form #postForm="ngForm" (ngSubmit)="onAddPost(postForm)" >
   <!-- ngForm - creates form object  -->
   <mat-card>
@@ -31,36 +31,10 @@
       </mat-form-field>
   </mat-card>
   <hr>
-
   <button
     mat-raised-button
     color="primary"
   >
     save
   </button>
-
 </form>
-
-
-<!--  // ngModel way
-  <mat-form-field>
-    <input matInput type="text" [(ngModel)]="enteredTitle">
-  </mat-form-field>
-
-  <mat-card>
-    <mat-form-field>
-      <textarea matInput rows="6" [(ngModel)]="enteredContent" > </textarea>
-      </mat-form-field>
-  </mat-card>
-
-
-<hr>
-
-<button
-  mat-raised-button
-  color="primary"
-  (click)="onAddPost()">
-  save
-</button>
-
--->

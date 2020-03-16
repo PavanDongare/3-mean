@@ -61,15 +61,18 @@ export class PostsService {
   editPost(post : Post){
       this.http.put('http://localhost:3000/api/posts/' + post.id, post).subscribe(
         resoponse => {
-          console.log('edit response');
+          const updatePosts = [...this.posts];
+          const index = updatePosts.findIndex(p=> post.id == p.id);
+          this.posts[index]= post;
+          this.updatedPost.next([...this.posts]);
         }
       );
       this.router.navigate(['/']);
     }
 
 
-    getPost(postId: string ) {
-      return { ... this.posts.find(p => p.id === postId) }; // copy of post
+    getPost(postId: string ) { // gets single post from local
+      return this.http.get<{_id: string, content: string, title: string }>('http://localhost:3000/api/posts/' + postId);
     }
   }
 
