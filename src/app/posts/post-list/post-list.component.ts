@@ -2,6 +2,7 @@ import { PostsService } from './../posts.service';
 import { Post } from './../posts.model';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
+import { PageEvent } from '@angular/material';
 
 @Component({
   selector: 'app-post-list',
@@ -14,6 +15,15 @@ export class PostListComponent implements OnInit , OnDestroy {
   private postSub: Subscription;
   constructor(public postsService: PostsService) { }
   // public keyword makes an  object automatic
+
+  // paginator vars
+  numPages = 100;
+  displaySize = 3;
+  dispOptions: number[] = [2, 3, 4, 5] ;
+
+  onPageChange(pageChange: PageEvent){ // at call level param is $event which is ng provided
+    
+  }
 
   ngOnInit() {
     this.postsService.getPosts();

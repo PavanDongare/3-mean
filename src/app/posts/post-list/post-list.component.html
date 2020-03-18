@@ -1,3 +1,10 @@
+<mat-paginator [length]="numPages"
+               [pageSize]="displaySize"
+               [pageSizeOptions]="dispOptions"
+               (page)="onPageChange($event)" >
+</mat-paginator>
+
+
 <mat-accordion multi="true" *ngIf="posts.length">
   <mat-expansion-panel *ngFor="let post of posts">
     <mat-expansion-panel-header>
@@ -16,5 +23,7 @@
 
   </mat-expansion-panel>
 </mat-accordion>
+
+
 <p class="info-text mat-body-1" *ngIf="!posts.length"> No posts added yet.  </p>
 <p> {{posts.length}} </p>

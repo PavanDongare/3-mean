@@ -25,10 +25,23 @@ router.post("", (req,res,next) => {
 
 });
 
-// 2
+// 2  get all posts // or get post by query size and page
+//posts?size=2&page=1  this is right url to test
 
 router.get("",(req,res,next)=> {
-    Post.find().then(  documents=> {
+  console.log(req.query);
+
+  pageSize = +req.query.size; // + makes it integer from url string
+  currentPage = +req.query.page; // query is a js object
+
+  const result = Post.find(); // 1st pass
+
+  if(pageSize && currentPage){
+      result.skip(pageSize*(currentPage-1))
+            .limit(pageSize);
+  }
+
+  result.then(  documents=> {
   console.log(documents);
   res.status(200).json( {
     message: " get successful",
