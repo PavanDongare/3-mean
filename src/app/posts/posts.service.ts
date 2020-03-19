@@ -13,8 +13,9 @@ export class PostsService {
   private posts: Post[] = [];
   private updatedPost = new Subject < Post[]> ();
 
-  getPosts() {
-    return this.http.get<{message : string ,posts: any }>("http://localhost:3000/api/posts")
+  getPosts(size: number, page: number) {
+    const query = `?size=${size}&page=${page}`;
+    return this.http.get<{message: string , posts: any }>("http://localhost:3000/api/posts"+query)
     .pipe( map( postData  => {
       return postData.posts.map( post => {
         return {
