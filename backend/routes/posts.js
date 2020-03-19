@@ -30,7 +30,6 @@ router.post("", (req,res,next) => {
 
 router.get("",(req,res,next)=> {
   console.log(req.query);
-
   pageSize = +req.query.size; // + makes it integer from url string
   currentPage = +req.query.page; // query is a js object
 
@@ -42,7 +41,7 @@ router.get("",(req,res,next)=> {
   }
 
   result.then(  documents=> {
-  console.log(documents);
+  console.log("result",result);
   res.status(200).json( {
     message: " get successful",
     posts: documents

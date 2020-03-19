@@ -24,7 +24,7 @@ export class PostListComponent implements OnInit , OnDestroy {
 
   onPageChange(pageChange: PageEvent) { // at call level param is $event which is ng provided
     this.displaySize = pageChange.pageSize;
-    this.currentPage = pageChange.pageIndex;
+    this.currentPage = pageChange.pageIndex + 1;
     this.postsService.getPosts(this.displaySize, this.currentPage);
     console.log(pageChange);
   }
