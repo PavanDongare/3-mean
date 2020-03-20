@@ -18,26 +18,34 @@ export class PostListComponent implements OnInit , OnDestroy {
 
   // paginator vars
   numPages = 100;
-  displaySize = 3;
+  displaySize = 2;
   dispOptions: number[] = [2, 3, 4, 5] ;
   currentPage = 1 ;
 
-  onPageChange(pageChange: PageEvent) { // at call level param is $event which is ng provided
-    this.displaySize = pageChange.pageSize;
-    this.currentPage = pageChange.pageIndex + 1;
-    this.postsService.getPosts(this.displaySize, this.currentPage);
-    console.log(pageChange);
-  }
+  // spinner
+  loading = false;
 
   ngOnInit() {
     this.postsService.getPosts(this.displaySize, this.currentPage);
     this.postSub = this.postsService.getUpdatedPostListener().subscribe(
       (posts: Post[]) => {
         this.posts = posts;
+        this.loading = false;
       }
     );
     console.log('oninit list' + this.posts);
   }
+
+  // api call : data
+  onPageChange(pageChange: PageEvent) { // at call level param is $event which is ng provided
+    this.loading = true;
+    this.displaySize = pageChange.pageSize;
+    this.currentPage = pageChange.pageIndex + 1;
+    this.postsService.getPosts(this.displaySize, this.currentPage);
+    console.log(pageChange);
+  }
+
+
 
   ngOnDestroy(): void {
     // throw new Error("Method not implemented.");
