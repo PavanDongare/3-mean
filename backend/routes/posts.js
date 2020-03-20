@@ -25,14 +25,13 @@ router.post("", (req,res,next) => {
 
 });
 
-// 2  get all posts // or get post by query size and page
-//posts?size=2&page=1  this is right url to test
+// api-2  get all posts // or get post by query size and page
+//posts?size=2&page=1  this is right url to test : 1st question mark then onwards &
 
 router.get("",(req,res,next)=> {
   console.log(req.query);
   pageSize = +req.query.size; // + makes it integer from url string
   currentPage = +req.query.page; // query is a js object
-
   const result = Post.find(); // 1st pass
 
   if(pageSize && currentPage){
@@ -40,14 +39,18 @@ router.get("",(req,res,next)=> {
             .limit(pageSize);
   }
 
+  let fetchedPosts=null;
   result.then(  documents=> {
-  console.log("result",result);
-  res.status(200).json( {
-    message: " get successful",
-    posts: documents
-  })
+    fetchedPosts = documents;
+    return Post.count();
+  }).then(count=>{
+    res.status(200).json({
+      message:"get call success",
+      posts : fetchedPosts,
+      count: count
     })
-})
+  });
+});
 
 // 3
 
