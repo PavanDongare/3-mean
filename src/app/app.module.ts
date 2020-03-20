@@ -11,12 +11,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule,MatCardModule,MatButtonModule, MatToolbarModule, MatExpansionModule, MatProgressSpinnerModule, MatPaginatorModule } from '@angular/material';
 import { HeaderComponent } from './header/header.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
+import { LoginComponent } from './auth/login/login.component';
 @NgModule({
   declarations: [
     AppComponent,
     PostCreateComponent,
     HeaderComponent,
-    PostListComponent
+    PostListComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +35,7 @@ import { PostListComponent } from './posts/post-list/post-list.component';
     MatPaginatorModule,
   ],
   providers: [  ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  exports: [LoginComponent]
 })
 export class AppModule { }
