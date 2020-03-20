@@ -17,8 +17,8 @@ export class PostListComponent implements OnInit , OnDestroy {
   // public keyword makes an  object automatic
 
   // paginator vars
-  numPages = 100;
-  displaySize = 2;
+  numPages = 0;
+  displaySize = 2; // for default
   dispOptions: number[] = [2, 3, 4, 5] ;
   currentPage = 1 ;
 
@@ -28,7 +28,7 @@ export class PostListComponent implements OnInit , OnDestroy {
   ngOnInit() {
     this.postsService.getPosts(this.displaySize, this.currentPage);
     this.postSub = this.postsService.getUpdatedPostListener().subscribe(
-      (postsData) => {
+      (postsData : {posts: Post[], count: number }) => {
         this.posts = postsData.posts;
         this.loading = false;
         this.numPages = postsData.count;
