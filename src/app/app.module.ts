@@ -12,13 +12,15 @@ import { MatInputModule,MatCardModule,MatButtonModule, MatToolbarModule, MatExpa
 import { HeaderComponent } from './header/header.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { LoginComponent } from './auth/login/login.component';
+import { SignupComponent } from './auth/signup/signup/signup.component';
 @NgModule({
   declarations: [
     AppComponent,
     PostCreateComponent,
     HeaderComponent,
     PostListComponent,
-    LoginComponent
+    LoginComponent,
+    SignupComponent
   ],
   imports: [
     BrowserModule,
@@ -36,6 +38,6 @@ import { LoginComponent } from './auth/login/login.component';
   ],
   providers: [  ],
   bootstrap: [AppComponent],
-  exports: [LoginComponent]
+  exports: [LoginComponent, SignupComponent]
 })
 export class AppModule { }
