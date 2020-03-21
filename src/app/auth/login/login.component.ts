@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
   }
 
   onLoginForm(){
-
+    console.log("login console");
   }
 
 }

@@ -1,4 +1,6 @@
+import { AuthService } from './../auth.service';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -9,12 +11,16 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 export class SignupComponent implements OnInit {
 
   loading = false;
-  constructor() { }
+  constructor(private authService : AuthService) { }
 
   ngOnInit() {
   }
 
-  onLoginForm() {
+  onSignUp(form: NgForm) {
+    console.log(form.value.email, form.value.password);
+    if(form.valid){
+      this.authService.createUser(form.value.email, form.value.password);
+    } else { return; }
 
   }
 
