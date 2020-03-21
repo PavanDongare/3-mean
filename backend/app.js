@@ -1,9 +1,10 @@
+
+
 var express = require('express')
   , cors = require('cors')
   , app = express();
 
 app.use(cors());
-
 
 //const express = require('express');
 const bodyParser = require("body-parser");
@@ -19,7 +20,7 @@ mongoose.connect('mongodb+srv://pavan:isg39Vqal4YvodDJ@cluster0-rcm2k.mongodb.ne
   console.log("connection failed")
 })
 
-const PostRoutes = require("./routes/posts"); // import routes object
+
 // posts saved as docs
 const Post = require("./models/post");
 
@@ -48,8 +49,11 @@ app.use(function(req, res, next) {
 });
 
 
+const postRoutes = require("./routes/posts"); // import routes object
+const userRoutes = require("./routes/user");
 
-app.use("/api/posts",PostRoutes);
+app.use("/api/posts",postRoutes);
+app.use("/api/user",userRoutes);
 
 module.exports = app;
 
