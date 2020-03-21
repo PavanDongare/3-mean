@@ -1,22 +1,35 @@
 
 <mat-spinner *ngIf="loading" > </mat-spinner>
 
-<form *ngIf="!loading" >
+<form (submit)=(loginForm) #loginForm *ngIf="!loading" >
   <mat-card>
     <mat-form-field>
           <input
               matInput
               type="email"
               name="email"
-              required
+              ngModel
+              #emailInput="ngModel"
               placeholder="E-mail"
+              required
+              email
           >
-          <mat-error *ngIf=""> please enter a valid Email </mat-error>
+          <!-- name,ngModel -to tell which control to map to
+          #emailInput="ngModel" is for local ref within template
+        eg using control with *ngIf somewhere else in other control
+      name , ngModel is imp -->
+          <mat-error *ngIf="emailInput.invalid"> please enter a valid Email </mat-error>
     </mat-form-field>
 
     <mat-form-field>
-      <input type="password" matInput placeholder="Password">
-      <mat-error *ngIf=""> please enter a valid password </mat-error>
+      <input type="password"
+            name="password"
+            ngModel
+            required
+            matInput placeholder="Password"
+            #passwordInput="ngModel"
+      >
+      <mat-error *ngIf="passwordInput.invalid"> please enter a valid password </mat-error>
       </mat-form-field>
   </mat-card>
 
