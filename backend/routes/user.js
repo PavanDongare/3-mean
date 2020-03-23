@@ -6,7 +6,7 @@ const bcrypt = require("bcrypt");
 
 
 
-
+// commit to continue streak. cheating :(
 
 router.post("/signup", (req, res, next) => {
   bcrypt.hash(req.body.password, 10).then(hash => {
