@@ -1,4 +1,6 @@
+import { AuthService } from './../auth.service';
 import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-login', // not required if used via routing
@@ -8,13 +10,14 @@ import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
   loading = false;
-  constructor() { }
+  constructor(private authService: AuthService) { }
 
   ngOnInit() {
   }
 
-  onLoginForm(){
-    console.log("login console");
+  onLoginForm(form: NgForm) {
+    console.log(form);
+    this.authService.login(form.value.email, form.value.password);
   }
 
 }
