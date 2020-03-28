@@ -10,6 +10,7 @@ import { Subject } from 'rxjs';
 export class AuthService {
 
   private token: string;
+  private isAuthenticated: boolean ;
 
   private authStatus = new Subject<boolean>();
   getToken() {
@@ -18,6 +19,10 @@ export class AuthService {
 
   getAuthStatus() {
     return this.authStatus.asObservable();
+  }
+
+  getAuthStatusFirst() {
+    return this.isAuthenticated;
   }
 
   constructor(private router : Router ,private http: HttpClient) { }
@@ -42,8 +47,13 @@ createUser(email: string, password: string ) {
       .subscribe(response => {
         console.log(response);
         const token = response.token;
-        this.token = token;
-        this.authStatus.next(true);
+        if(token) {
+          this.token = token;
+          this.authStatus.next(true);
+          this.isAuthenticated = true;
+        }
+
+
         console.log("sent");
         this.router.navigate(['/']);
       });
