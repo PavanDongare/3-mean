@@ -32,7 +32,7 @@ export class AuthService {
     this.isAuthenticated = false;
     this.authStatus.next(false);
     this.router.navigate(['/']);
-    this.router.navigate(['/']);
+    this.clearAuthData();
     clearTimeout(this.tokenTimer);
   }
 
