@@ -25,6 +25,12 @@ export class AuthService {
     return this.isAuthenticated;
   }
 
+  logout() {
+    this.token = null;
+    this.isAuthenticated = false;
+    this.authStatus.next(false);
+  }
+
   constructor(private router : Router ,private http: HttpClient) { }
 
 

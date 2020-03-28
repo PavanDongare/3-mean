@@ -16,7 +16,7 @@
       <a *ngIf="isAuthenticated"  button routerLink="/create" routerLinkActive="mat-accent">  Create </a>
       <a *ngIf="!isAuthenticated" mat-button routerLink="/login" routerLinkActive="mat-accent">  Login </a>
       <a *ngIf="!isAuthenticated"  mat-button routerLink="/signup" routerLinkActive="mat-accent">  Sign Up </a>
-      <a *ngIf="isAuthenticated"  mat-button>  Logout </a>
+      <a *ngIf="isAuthenticated"  mat-button  (click)="logout()">  Logout </a>
     </li>
 
   </ul>
