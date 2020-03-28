@@ -59,20 +59,56 @@ export class AuthService {
         console.log(response);
         const token = response.token;
         if (token) {
-          const expiresIn = response.expiresIn * 1000;
-          this.tokenTimer = setTimeout(()=> {
-            this.logout();
-          },expiresIn)
+          const expiresIn = response.expiresIn;
+          this.setAuthTimer(expiresIn);
           this.token = token;
           this.authStatus.next(true);
           this.isAuthenticated = true;
-          const expirationDate = new Date(this.now.getTime()+ expiresIn)
+          const expirationDate = new Date(this.now.getTime() + expiresIn * 1000);// since api res in in sec and we need milisec
           this.saveAuthData(token, expirationDate);
+          // console.log('backend expire time',expiresIn);
+          // console.log('login current time',new Date(this.now.getTime()));
+          // console.log('login setting, expires in ', new Date(this.now.getTime()+ expiresIn));
+
           console.log(expirationDate);
           console.log("time",this.now.getTime());
           this.router.navigate(['/']);
         }
       });
+  }
+
+
+  autoAuthUser() {
+    const authInformation = this.getAuthData();
+    const now = new Date();
+    const expiresIn : number = authInformation.expiration.getTime() - now.getTime() ;
+    console.log('auto auth, expires in ', expiresIn);
+    console.log('auto auth, store time,date ', new Date(authInformation.expiration));
+    console.log('auto auth, present time, date ',new Date(now.getTime()) );
+    if ( expiresIn > 0 ) {
+      this.token = authInformation.token;
+      this.isAuthenticated = true;
+      this.authStatus.next(true);
+      this.setAuthTimer(expiresIn / 1000);
+    }
+  }
+
+  private setAuthTimer(duration: number) {
+    console.log('expires in seconds',duration);
+    this.tokenTimer = setTimeout (() => {
+      this.logout();
+    }, duration * 1000 );
+  }
+
+  private getAuthData() {
+    const token = localStorage.getItem('token');
+    const expirationDate = localStorage.getItem('expiration');
+    if (!(token && expirationDate)) { return ; }
+
+    return {
+      token,
+      expiration: new Date(expirationDate)
+    };
   }
 
   private saveAuthData (token: string, expirationDate){
