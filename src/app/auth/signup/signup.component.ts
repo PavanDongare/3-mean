@@ -20,6 +20,7 @@ export class SignupComponent implements OnInit {
     console.log(form.value);
     console.log(form.value.email, form.value.password);
     if(form.valid){
+      this.loading = true;
       this.authService.createUser(form.value.email, form.value.password);
     } else { return; }
 
