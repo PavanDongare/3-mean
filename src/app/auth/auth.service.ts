@@ -29,6 +29,7 @@ export class AuthService {
     this.token = null;
     this.isAuthenticated = false;
     this.authStatus.next(false);
+    this.router.navigate(['/']);
   }
 
   constructor(private router : Router ,private http: HttpClient) { }
@@ -38,7 +39,7 @@ export class AuthService {
 
 
 
-createUser(email: string, password: string ) {
+  createUser(email: string, password: string ) {
       const authData: AuthData = { email, password};
       this.http.post('http://localhost:3000/api/user/signup', authData)
       .subscribe(response => {
