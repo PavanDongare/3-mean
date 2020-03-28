@@ -36,18 +36,43 @@ router.post("/login", (req, res, next) => {
   let fetchedUser;
   User.findOne({ email: req.body.email })
     .then(user => {
-      if (!user) { return res.status(401).json({ message: "Auth failed" });}
+      console.log("***************",req.body.email,user);
+      if (!user) {
+
+        return res.status(401).json({
+          message: "Auth failed1"
+        });
+      }
       fetchedUser = user;
+
+
+      console.log("*******user********",req.body.password, user.password);
       return bcrypt.compare(req.body.password, user.password);
     })
     .then(result => {
-      if (!result) { return res.status(401).json({  message: "Auth failed" });}
-      const token = jwt.sign({ email: fetchedUser.email, userId: fetchedUser._id },"secret_this_should_be_longer",{ expiresIn: "1h" });
+
+      if (!result) {
+        return res.status(401).json({
+          message: "Auth failed2"
+        });
+      }
+      const token = jwt.sign(
+        { email: fetchedUser.email, userId: fetchedUser._id },
+        "secret_this_should_be_longer",
+        { expiresIn: "1h" }
+      );
+      console.log("*******token********",token);
+
       res.status(200).json({
         token: token
       });
     })
-    .catch(err => { return res.status(401).json({message: "Auth failed"});
+    .catch(err => {
+      console.log("*******err********",err);
+
+      return res.status(401).json({
+        message: "Auth failed3"
+      });
     });
 });
 

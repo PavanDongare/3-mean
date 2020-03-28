@@ -3,9 +3,10 @@
 const express = require("express"); // import express
 const router =  express.Router(); // create router;
 const Post = require("../models/post");
+const checkAuth = require("../middleware/check.auth");
 
 //1
-router.post("", (req,res,next) => {
+router.post("",checkAuth,(req,res,next) => {
   Post.find().then( documents => {
     console.log(documents);
   })
@@ -27,7 +28,6 @@ router.post("", (req,res,next) => {
 
 // api-2  get all posts // or get post by query size and page
 //posts?size=2&page=1  this is right url to test : 1st question mark then onwards &
-
 router.get("",(req,res,next)=> {
   console.log(req.query);
   pageSize = +req.query.size; // + makes it integer from url string
@@ -54,7 +54,7 @@ router.get("",(req,res,next)=> {
 
 // 3
 
-router.delete("/:id",(req,res,next)=>{
+router.delete("/:id",checkAuth,(req,res,next)=>{
     console.log("delete called "+req.params.id);
     Post.deleteOne({_id:req.params.id}).then(result=>{
       console.log("result"+result);
@@ -63,8 +63,8 @@ router.delete("/:id",(req,res,next)=>{
 })
 
 
-// 4
-router.put("/:id",(req,res,next)=>{
+// 4 update
+router.put("/:id",checkAuth,(req,res,next)=>{
     const post = new Post({   // object created with mongoose
   _id: req.body.id,
   title: req.body.title ,
