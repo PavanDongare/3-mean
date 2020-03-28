@@ -18,6 +18,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.authListener =  this.authService.getAuthStatus()
         .subscribe( isAuthenticated =>  {
           this.isAuthenticated = isAuthenticated;
+          console.log('sub in header',this.isAuthenticated);
         });
   }
 

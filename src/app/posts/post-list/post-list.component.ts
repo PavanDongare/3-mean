@@ -3,6 +3,7 @@ import { Post } from './../posts.model';
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { PageEvent } from '@angular/material';
+import { AuthService } from 'src/app/auth/auth.service';
 
 @Component({
   selector: 'app-post-list',
@@ -13,15 +14,15 @@ export class PostListComponent implements OnInit , OnDestroy {
 
   posts: Post[] = [];
   private postSub: Subscription;
-  constructor(public postsService: PostsService) { }
-  // public keyword makes an  object automatic
+  constructor(public postsService: PostsService,private authService: AuthService) { }
+  private authListener : Subscription;
 
   // paginator vars
   numPages = 0;
   displaySize = 2; // for default
   dispOptions: number[] = [2, 3, 4, 5] ;
   currentPage = 1 ;
-
+  isAuthenticated = false;
   // spinner
   loading = false;
 
@@ -35,6 +36,12 @@ export class PostListComponent implements OnInit , OnDestroy {
       }
     );
     console.log('oninit list' + this.posts);
+    // ________________________________________
+    this.authListener =  this.authService.getAuthStatus()
+    .subscribe( isAuthenticated =>  {
+      this.isAuthenticated = isAuthenticated;
+      console.log('sub in pl', this.isAuthenticated);
+    });
   }
 
   // api call : data
@@ -51,6 +58,7 @@ export class PostListComponent implements OnInit , OnDestroy {
   ngOnDestroy(): void {
     // throw new Error("Method not implemented.");
     this.postSub.unsubscribe();
+    this.authListener.unsubscribe();
   }
 
   postDelete(id: string){

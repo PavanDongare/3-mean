@@ -13,13 +13,19 @@
     </mat-expansion-panel-header>
     <p>{{post.content}}</p>
     <mat-action-row>
-      <a
-        color="secondary"
-        mat-button [routerLink]="['edit',post.id]"
-      >
-          EDIT
+      <a *ngIf="isAuthenticated"
+            color="secondary"
+            mat-button [routerLink]="['edit',post.id]"
+            >
+            EDIT
       </a>
-      <button color= "warn" mat-button (click)="postDelete(post.id)">DELETE</button>
+      <button *ngIf="isAuthenticated"
+              color= "warn"
+              mat-button
+              (click)="postDelete(post.id)"
+              >
+              DELETE
+      </button>
     </mat-action-row>
 
   </mat-expansion-panel>

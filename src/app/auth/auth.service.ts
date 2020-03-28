@@ -16,7 +16,7 @@ export class AuthService {
     return this.token;
   }
 
-  getAuthStatus(){
+  getAuthStatus() {
     return this.authStatus.asObservable();
   }
 
@@ -44,6 +44,7 @@ createUser(email: string, password: string ) {
         const token = response.token;
         this.token = token;
         this.authStatus.next(true);
+        console.log("sent");
         this.router.navigate(['/']);
       });
   }
