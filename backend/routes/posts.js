@@ -79,7 +79,7 @@ router.put("/:id",checkAuth,(req,res,next)=>{
                     title: req.body.title ,
                     content: req.body.content
                   });
-    // one way to allow only creator to update
+    // one way to allow only creator to update.
     // updateOne {id, condition} condition is -> creator:req.userData.userId
     // success response but doesn't edit
     Post.updateOne({_id:req.params.id,creator:req.userData.userId},post).then(
