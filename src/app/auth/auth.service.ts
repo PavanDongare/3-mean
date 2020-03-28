@@ -12,6 +12,7 @@ export class AuthService {
   private token: string;
   private isAuthenticated: boolean ;
   private tokenTimer: any;
+  private now : Date = new Date;
 
   private authStatus = new Subject<boolean>();
   getToken() {
@@ -57,7 +58,7 @@ export class AuthService {
       .subscribe(response => {
         console.log(response);
         const token = response.token;
-        if(token) {
+        if (token) {
           const expiresIn = response.expiresIn * 1000;
           this.tokenTimer = setTimeout(()=> {
             this.logout();
@@ -65,11 +66,23 @@ export class AuthService {
           this.token = token;
           this.authStatus.next(true);
           this.isAuthenticated = true;
+          const expirationDate = new Date(this.now.getTime()+ expiresIn)
+          this.saveAuthData(token, expirationDate);
+          console.log(expirationDate);
+          console.log("time",this.now.getTime());
+          this.router.navigate(['/']);
         }
-
-
-        console.log('sent');
-        this.router.navigate(['/']);
       });
   }
+
+  private saveAuthData (token: string, expirationDate){
+    localStorage.setItem('token', token);
+    localStorage.setItem('expiration', expirationDate.toISOString());
+  }
+
+  private clearAuthData(){
+    localStorage.removeItem('token');
+    localStorage.removeItem('expiration');
+  }
+
 }
