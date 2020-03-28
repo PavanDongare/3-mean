@@ -61,25 +61,33 @@ router.get("",(req,res,next)=> {
 
 router.delete("/:id",checkAuth,(req,res,next)=>{
     console.log("delete called "+req.params.id);
-    Post.deleteOne({_id:req.params.id}).then(result=>{
-      console.log("result"+result);
-    });
-    res.status(200).json({message:"post deleted"});
+    Post.deleteOne({_id:req.params.id,creator:req.userData.userId}).then(
+      result=>{
+        console.log(result);
+        if(result.n>0) res.status(200).json({message:'updated post'});
+        else           res.status(401).json({message:'not allowed to update'});
+      }
+    );
+    //res.status(200).json({message:"post deleted"});
 })
 
 
 // 4 update
 router.put("/:id",checkAuth,(req,res,next)=>{
     const post = new Post({   // object created with mongoose
-  _id: req.body.id,
-  title: req.body.title ,
-  content: req.body.content
-    });
-
-    console.log(post);
-    Post.updateOne({_id:req.params.id},post).then(result=>{
-  res.status(200).json({message:'updated post'});
-    });
+                    _id: req.body.id,
+                    title: req.body.title ,
+                    content: req.body.content
+                  });
+    // one way to allow only creator to update
+    // updateOne {id, condition} condition is -> creator:req.userData.userId
+    // success response but doesn't edit
+    Post.updateOne({_id:req.params.id,creator:req.userData.userId},post).then(
+      result=>{
+        if(result.n>0) res.status(200).json({message:'updated post'});
+        else           res.status(401).json({message:'not allowed to update'});
+      }
+    );
 })
 
 // 5 API get post by ID
