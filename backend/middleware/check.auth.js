@@ -9,6 +9,6 @@ module.exports = (req,res,next) => {
     next();
   }
   catch(error) {
-  res.status(200).json({message:"auth fail"});
+  res.status(401).json({message:"unauthorized"});
   }
 }
