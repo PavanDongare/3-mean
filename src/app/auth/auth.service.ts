@@ -80,7 +80,9 @@ export class AuthService {
 
   autoAuthUser() {
     const authInformation = this.getAuthData();
+    console.log('authinfo is ', authInformation);
     const now = new Date();
+    if(!authInformation) { return; } // to avoid error on next line
     const expiresIn : number = authInformation.expiration.getTime() - now.getTime() ;
     console.log('auto auth, expires in ', expiresIn);
     console.log('auto auth, store time,date ', new Date(authInformation.expiration));
