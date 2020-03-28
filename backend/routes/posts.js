@@ -12,8 +12,13 @@ router.post("",checkAuth,(req,res,next) => {
   })
   const post = new Post({   // object created with mongoose
     title: req.body.title ,
-    content: req.body.content
+    content: req.body.content,
+    creator: req.userData.userId
  });
+ // testing purpose- check if middleware adds userdata
+ // return res.status(200).json(req.userData);
+ //console.log(req.userData);
+
  post.save().then(
    result => {
     console.log(post);
