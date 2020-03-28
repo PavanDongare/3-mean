@@ -8,6 +8,12 @@ import { Injectable } from '@angular/core';
 })
 export class AuthService {
 
+  token: string;
+
+  getToken() {
+    return this.token;
+  }
+
   constructor(private router : Router ,private http: HttpClient) { }
 
 createUser(email: string, password: string ) {
@@ -21,9 +27,11 @@ createUser(email: string, password: string ) {
 
   login(email: string , password: string) {
     const authData : AuthData = { email:email, password:password};
-    this.http.post("http://localhost:3000/api/user/login",authData)
-      .subscribe(result=>{
-        console.log(result);
+    this.http.post<{token: string}>("http://localhost:3000/api/user/login",authData)
+      .subscribe(response =>{
+        console.log(response);
+        const token = response.token;
+        this.token = token;
         this.router.navigate(['/']);
       });
   }
