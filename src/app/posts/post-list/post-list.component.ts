@@ -25,13 +25,16 @@ export class PostListComponent implements OnInit , OnDestroy {
 
   // spinner
   loading = false;
+  userId :string;
 
 
   ngOnInit() {
 
+    this.userId = this.authService.getUserId();
     this.authListener =  this.authService.getAuthStatus()
         .subscribe( isAuthenticated =>  {
           this.isAuthenticated = isAuthenticated;
+          this.userId = this.authService.getUserId();
           console.log('sub in header2', this.isAuthenticated);
         });
 
