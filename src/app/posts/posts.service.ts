@@ -73,7 +73,12 @@ export class PostsService {
 
 
     getPost(postId: string ) { // gets single post from local
-      return this.http.get<{_id: string, content: string, title: string }>('http://localhost:3000/api/posts/' + postId);
+      return this.http.get<{
+        _id: string,
+        content: string,
+        title: string,
+        creator: string
+      }>('http://localhost:3000/api/posts/' + postId);
     }
   }
 

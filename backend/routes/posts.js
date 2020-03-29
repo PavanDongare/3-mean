@@ -77,7 +77,8 @@ router.put("/:id",checkAuth,(req,res,next)=>{
     const post = new Post({   // object created with mongoose
                     _id: req.body.id,
                     title: req.body.title ,
-                    content: req.body.content
+                    content: req.body.content,
+                    creator: req.userData.userId
                   });
     // one way to allow only creator to update.
     // updateOne {id, condition} condition is -> creator:req.userData.userId

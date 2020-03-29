@@ -35,7 +35,8 @@ export class PostCreateComponent implements OnInit {
               {
                  id : postByID._id,
                  title : postByID.title,
-                 content :postByID.content
+                 content :postByID.content,
+                 creator : postByID.creator
               }
             }
           ) ;
@@ -43,7 +44,7 @@ export class PostCreateComponent implements OnInit {
 
         } else {
           this.mode = 'create';
-          this.editPost = { id:'',title:'',content:''} ;
+          this.editPost = { id:'',title:'',content:'',creator:null} ;
         }
       }
     );
@@ -60,6 +61,7 @@ export class PostCreateComponent implements OnInit {
         { id : null ,
           title : form.value.title,
           content : form.value.content,
+          creator : null
         });
         console.log(form.value.content , form.value.title);
     } else if ( this.mode === 'edit') {
@@ -67,6 +69,7 @@ export class PostCreateComponent implements OnInit {
         id: this.postId,
         title : form.value.title,
         content : form.value.content,
+        creator : null
       })  ;
       console.log(form.value.content , form.value.title);
     }

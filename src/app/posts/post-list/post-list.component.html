@@ -13,13 +13,13 @@
     </mat-expansion-panel-header>
     <p>{{post.content}}</p>
     <mat-action-row>
-      <a *ngIf="isAuthenticated"
+      <a *ngIf="isAuthenticated && userId===post.creator"
             color="secondary"
             mat-button [routerLink]="['edit',post.id]"
             >
             EDIT
       </a>
-      <button *ngIf="isAuthenticated"
+      <button *ngIf="isAuthenticated && userId===post.creator "
               color= "warn"
               mat-button
               (click)="postDelete(post.id)"

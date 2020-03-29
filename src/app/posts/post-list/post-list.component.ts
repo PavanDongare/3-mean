@@ -25,7 +25,7 @@ export class PostListComponent implements OnInit , OnDestroy {
 
   // spinner
   loading = false;
-  userId :string;
+  userId: string;
 
 
   ngOnInit() {
