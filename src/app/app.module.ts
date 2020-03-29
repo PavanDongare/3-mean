@@ -9,12 +9,13 @@ import { AppComponent } from './app.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule,MatCardModule,MatButtonModule, MatToolbarModule, MatExpansionModule, MatProgressSpinnerModule, MatPaginatorModule } from '@angular/material';
+import { MatInputModule,MatCardModule,MatButtonModule, MatToolbarModule, MatExpansionModule, MatProgressSpinnerModule, MatPaginatorModule, MatDialogModule } from '@angular/material';
 import { HeaderComponent } from './header/header.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { LoginComponent } from './auth/login/login.component';
 import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
+import { ErrorComponent } from './error/error/error.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -22,7 +23,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     HeaderComponent,
     PostListComponent,
     LoginComponent,
-    SignupComponent
+    SignupComponent,
+    ErrorComponent
   ],
   imports: [
     BrowserModule,
@@ -37,6 +39,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     MatExpansionModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
+    MatDialogModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
@@ -44,6 +47,7 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     // every req will be intercepted with token even if not required
   ],
   bootstrap: [AppComponent],
-  exports: [LoginComponent, SignupComponent]
+  entryComponents: [ErrorComponent],
+  exports: [LoginComponent, SignupComponent, ErrorComponent]
 })
 export class AppModule { }
