@@ -1,5 +1,10 @@
-
-<mat-spinner *ngIf="loading" > </mat-spinner>
+<!-- <mat-spinner *ngIf="loading" > </mat-spinner>
+<button
+mat-raised-button
+(click)="offspinner()"
+>
+off spinner
+</button> -->
 
 <form #signupForm="ngForm" (submit)="onSignUp(signupForm)"  *ngIf="!loading" >
   <mat-card>
@@ -40,6 +45,6 @@
   >
     SignUp
   </button>
-  <mat-spinner *ngIf="loading" > </mat-spinner>
+
 
 </form>

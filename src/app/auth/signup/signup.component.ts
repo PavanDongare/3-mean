@@ -1,5 +1,6 @@
+import { Subscription } from 'rxjs';
 import { AuthService } from './../auth.service';
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
 @Component({
@@ -8,12 +9,31 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./signup.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SignupComponent implements OnInit {
+export class SignupComponent implements OnInit, OnDestroy {
 
   loading = false;
   constructor(public authService : AuthService) { }
 
+  authStatusSub : Subscription;
+
+  // offspinner(){
+  //   console.log("*****");
+  //   console.log(this.loading);
+  // }
+
   ngOnInit() {
+      this.authStatusSub = this.authService.getAuthStatus().subscribe(
+        (authStatus)=>{
+        this.loading = authStatus ;
+        if(!authStatus){
+          console.log('loged off signL',this.loading);
+        }
+        console.log('ngOninit loader off');
+      });
+  }
+
+  ngOnDestroy() {
+    this.authStatusSub.unsubscribe();
   }
 
   onSignUp(form: NgForm) {

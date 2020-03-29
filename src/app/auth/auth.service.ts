@@ -9,6 +9,7 @@ import { Subject } from 'rxjs';
 })
 export class AuthService {
 
+  constructor(private router : Router ,private http: HttpClient) { }
   private token: string;
   private isAuthenticated: boolean ;
   private userId: string; // can use new user model to hold more data
@@ -42,19 +43,15 @@ export class AuthService {
     clearTimeout(this.tokenTimer);
   }
 
-  constructor(private router : Router ,private http: HttpClient) { }
-
-
-
-
-
-
   createUser(email: string, password: string ) {
       const authData: AuthData = { email, password};
-      this.http.post('http://localhost:3000/api/user/signup', authData)
-      .subscribe(response => {
-        console.log(response);
-        this.router.navigate(['/']);
+      return this.http.post('http://localhost:3000/api/user/signup', authData).subscribe(
+        () => {
+        // tslint:disable-next-line: no-unused-expression
+        this.router.navigate['/'];
+      }, error => {
+        this.authStatus.next(false);
+        console.log('signal to loader off');
       });
   }
 
