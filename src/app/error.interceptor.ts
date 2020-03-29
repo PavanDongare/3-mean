@@ -17,10 +17,16 @@ export class ErrorInterceptor implements HttpInterceptor{
   intercept(req: HttpRequest<any> , next: HttpHandler) {
     return next.handle(req).pipe( // handel gives stream of res
       catchError( (error)=> {
-        console.log(error);
-        this.matDialog.open(ErrorComponent);
-        alert(error.error.message);
-        return throwError(error);
+       let errorMessage = 'an unexpected error';
+       if(error.error.message){
+           errorMessage = error.error.message;
+           console.log(errorMessage);
+       }
+       this.matDialog.open(ErrorComponent,
+          {  data : {message: errorMessage}
+          });
+
+          return throwError(error);
       })
     );
   }
