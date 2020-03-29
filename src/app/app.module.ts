@@ -1,3 +1,4 @@
+import { ErrorInterceptor } from './error.interceptor';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PostsService } from './posts/posts.service';
 import { BrowserModule } from '@angular/platform-browser';
@@ -38,7 +39,8 @@ import { AuthInterceptor } from './auth/auth.interceptor';
     MatPaginatorModule,
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true }
     // every req will be intercepted with token even if not required
   ],
   bootstrap: [AppComponent],
