@@ -15,7 +15,7 @@ export class PostCreateComponent implements OnInit {
   enteredTitle = '' ;
   postId = '';
   mode: string;
-  editPost: Post = { title:'', content:'',id: ''};
+  editPost: Post = { title:'', content:'',id: '',creator:''};
   spinner = false;
 
 
