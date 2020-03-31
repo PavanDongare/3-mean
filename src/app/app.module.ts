@@ -1,3 +1,4 @@
+import { AuthModule } from './auth/auth.module';
 import { PostsModule } from './posts/posts.module';
 import { AngularMaterialModule } from './angular-material.module';
 import { ErrorInterceptor } from './error.interceptor';
@@ -8,31 +9,24 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { PostCreateComponent } from './posts/post-create/post-create.component';
-import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { HeaderComponent } from './header/header.component';
-import { PostListComponent } from './posts/post-list/post-list.component';
-import { LoginComponent } from './auth/login/login.component';
-import { SignupComponent } from './auth/signup/signup.component';
 import { AuthInterceptor } from './auth/auth.interceptor';
 import { ErrorComponent } from './error/error/error.component';
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    LoginComponent,
-    SignupComponent,
     ErrorComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
-    FormsModule,
     BrowserAnimationsModule,
     AngularMaterialModule,
-    PostsModule
+    PostsModule,
+    AuthModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
@@ -41,6 +35,6 @@ import { ErrorComponent } from './error/error/error.component';
   ],
   bootstrap: [AppComponent],
   entryComponents: [ErrorComponent],
-  exports: [LoginComponent, SignupComponent, ErrorComponent]
+  exports: [ErrorComponent]
 })
 export class AppModule {  }
