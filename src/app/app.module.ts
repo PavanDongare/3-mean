@@ -1,3 +1,4 @@
+import { AngularMaterialModule } from './angular-material.module';
 import { ErrorInterceptor } from './error.interceptor';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { PostsService } from './posts/posts.service';
@@ -9,7 +10,6 @@ import { AppComponent } from './app.component';
 import { PostCreateComponent } from './posts/post-create/post-create.component';
 import { FormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatInputModule,MatCardModule,MatButtonModule, MatToolbarModule, MatExpansionModule, MatProgressSpinnerModule, MatPaginatorModule, MatDialogModule } from '@angular/material';
 import { HeaderComponent } from './header/header.component';
 import { PostListComponent } from './posts/post-list/post-list.component';
 import { LoginComponent } from './auth/login/login.component';
@@ -32,14 +32,7 @@ import { ErrorComponent } from './error/error/error.component';
     AppRoutingModule,
     FormsModule,
     BrowserAnimationsModule,
-    MatInputModule,
-    MatCardModule,
-    MatButtonModule,
-    MatToolbarModule,
-    MatExpansionModule,
-    MatProgressSpinnerModule,
-    MatPaginatorModule,
-    MatDialogModule
+    AngularMaterialModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
@@ -50,4 +43,4 @@ import { ErrorComponent } from './error/error/error.component';
   entryComponents: [ErrorComponent],
   exports: [LoginComponent, SignupComponent, ErrorComponent]
 })
-export class AppModule { }
+export class AppModule {  }
