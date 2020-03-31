@@ -20,15 +20,13 @@ router.post("",checkAuth,(req,res,next) => {
  //console.log(req.userData);
 
  post.save().then(
-   result => {
-    console.log(post);
-    res.status(201).json({
-      message: "post added successfully",
-      PostId: result._id
-    });
-   }
- )  ; // provided by mongoose
-
+      result => {
+      console.log(post);
+      res.status(201).json({
+        message: "post added successfully",
+        PostId: result._id
+      });
+   }); // provided by mongoose
 });
 
 // api-2  get all posts // or get post by query size and page
@@ -41,8 +39,7 @@ router.get("",(req,res,next)=> {
 
   if(pageSize && currentPage){
       result.skip(pageSize*(currentPage-1))
-            .limit(pageSize);
-  }
+            .limit(pageSize);}
 
   let fetchedPosts=null;
   result.then(  documents=> {
@@ -54,7 +51,7 @@ router.get("",(req,res,next)=> {
       posts : fetchedPosts,
       count: count
     })
-  });
+  }).catch(err=>res.status(500).json({ message:'backned crashed',}));
 });
 
 // 3
