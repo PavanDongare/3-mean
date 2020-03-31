@@ -8,8 +8,8 @@
               name="title"
               [ngModel]="editPost.title"
               required
+              #title="ngModel"
               placeholder="Post Title"
-              #title= "ngModel"
           >
               <mat-error *ngIf="title.invalid"> please enter correct title </mat-error>
     </mat-form-field>
@@ -26,7 +26,7 @@
       ></textarea>
 
       <mat-error *ngIf="content.invalid"> please enter correct content </mat-error>
-      </mat-form-field>
+     </mat-form-field>
   </mat-card>
 
   <button
