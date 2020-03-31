@@ -51,7 +51,7 @@ router.get("",(req,res,next)=> {
       posts : fetchedPosts,
       count: count
     })
-  }).catch(err=>res.status(500).json({ message:'backned crashed',}));
+  }).catch(err=>res.status(500).json({ message:'backend crashed',}));
 });
 
 // 3
@@ -64,7 +64,7 @@ router.delete("/:id",checkAuth,(req,res,next)=>{
         if(result.n>0) res.status(200).json({message:'updated post'});
         else           res.status(401).json({message:'not allowed to update'});
       }
-    );
+    ).catch(err=>res.status(500).json({ message:'delete failed.'}));;
     //res.status(200).json({message:"post deleted"});
 })
 
@@ -96,7 +96,7 @@ router.get("/:id",(req,res,next)=>{
       } else {
         res.status(404).json({message:"POST not found."});
       }
-    })
+    }).catch(err=>res.status(500).json({ message:'backend fail at post fetch'}));
 })
 
 module.exports = router;
