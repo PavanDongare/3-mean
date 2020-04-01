@@ -1,9 +1,11 @@
+import { environment } from './../../environments/environment';
 import { Router } from '@angular/router';
 import { AuthData } from './auth.model';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Subject } from 'rxjs';
 
+const BackendUrl = environment.apiUrl + '/user';
 @Injectable({
   providedIn: 'root'
 })
@@ -45,7 +47,7 @@ export class AuthService {
 
   createUser(email: string, password: string ) {
       const authData: AuthData = { email, password};
-      return this.http.post('http://localhost:3000/api/user/signup', authData).subscribe(
+      return this.http.post( BackendUrl + '/signup', authData).subscribe(
         () => {
         // tslint:disable-next-line: no-unused-expression
         this.router.navigate['/'];
@@ -57,7 +59,7 @@ export class AuthService {
 
   login(email: string , password: string) {
     const authData: AuthData = { email , password } ;
-    this.http.post<{token: string, expiresIn: number, userId: string }>('http://localhost:3000/api/user/login', authData)
+    this.http.post<{token: string, expiresIn: number, userId: string }>(BackendUrl + '/login', authData)
       .subscribe(response => {
         console.log(response);
         const token = response.token;
