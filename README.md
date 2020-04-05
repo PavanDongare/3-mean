@@ -1,4 +1,4 @@
-# SocialNetwork // honestly, more like a message board
+# a message board
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.8.
 
@@ -31,8 +31,28 @@ npm run noteapp  // local backend
 ng serve // local front
 
 API deploy
-1 upload contents inside backend folder
+0 use becryptjs // precompiled
+1 upload contents inside backend folder in a zipped form
 2 npm server.js // start command 
 3 whitelist hosting ip in database // not just local
  locate : created EIP
+
+ angular deploy
+ 1 set apiUrl in env.prod.ts
+ 2 ng build --prod
+ 3 pick up dist folder & upload contents only
+
+ deploy as single app
+ _______________________________________ 
+ 0 keep angular code in a folder named angular
+ 1 point output path to inside backend. backned/angular
+ 2 all unrecognized route go to angular
+ ---- angular path ---
+ api.user("req,res,next")=>{
+   res.sendFile (path.jpin(--dirname, angular,index.html)) // dirname is abs path to dist
+ } 
+4 static access to images & angular folder
+ app.use ("/",express.static(path.join(__dirname,"angulat")));
+ test with npm run start: server 
+ 5 always need to rubild app, upload zipped folder 
 
