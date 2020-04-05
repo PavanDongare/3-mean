@@ -25,3 +25,14 @@ Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protrac
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+
+
+npm run noteapp  // local backend
+ng serve // local front
+
+API deploy
+1 upload contents inside backend folder
+2 npm server.js // start command 
+3 whitelist hosting ip in database // not just local
+ locate : created EIP
+
