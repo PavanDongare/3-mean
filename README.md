@@ -37,7 +37,7 @@ API deploy
 3 whitelist hosting ip in database // not just local
  locate : created EIP
 
- angular deploy
+ angular deploy. (not deployed anywhere yet)
  1 set apiUrl in env.prod.ts
  2 ng build --prod
  3 pick up dist folder & upload contents only
