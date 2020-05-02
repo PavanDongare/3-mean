@@ -1,8 +1,27 @@
 {
   "name": "social-network",
   "version": "0.0.0",
+  "scripts": {
+    "ng": "ng",
+    "start": "ng serve",
+    "build": "ng build",
+    "test": "ng test",
+    "lint": "ng lint",
+    "e2e": "ng e2e",
+    "noteapp": "nodemon server.js"
+  },
   "private": true,
   "dependencies": {
+    "@angular/animations": "~8.2.9",
+    "@angular/cdk": "~8.2.3",
+    "@angular/common": "~8.2.9",
+    "@angular/compiler": "~8.2.9",
+    "@angular/core": "~8.2.9",
+    "@angular/forms": "~8.2.9",
+    "@angular/material": "^8.2.3",
+    "@angular/platform-browser": "~8.2.9",
+    "@angular/platform-browser-dynamic": "~8.2.9",
+    "@angular/router": "~8.2.9",
     "bcrypt": "^4.0.1",
     "body-parser": "^1.19.0",
     "cores": "^0.8.5",
@@ -13,6 +32,9 @@
     "mongodb": "^3.5.0",
     "mongoose": "^5.8.7",
     "mongoose-unique-validator": "^2.0.3",
-    "tslib": "^1.10.0"
+    "nodemon": "^2.0.3",
+    "rxjs": "~6.4.0",
+    "tslib": "^1.10.0",
+    "zone.js": "~0.9.1"
   }
 }

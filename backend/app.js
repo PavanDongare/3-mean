@@ -1,5 +1,5 @@
 
-
+const path = require('path');
 var express = require('express')
   , cors = require('cors')
   , app = express();
@@ -27,6 +27,7 @@ const Post = require("./models/post");
 
 // isg39Vqal4YvodDJ
 app.use(bodyParser.json());
+app.use("/",express.static(path.join(__dirname,"angular"))) // allow static access?
 
 app.use( (req,res,next)=>{
   res.setHeader("Access-Control-Allow-Origin","*");
@@ -54,6 +55,9 @@ const userRoutes = require("./routes/user");
 
 app.use("/api/posts",postRoutes);
 app.use("/api/user",userRoutes);
+app.use((req,res,next)=>{
+  res.sendFile(path.join(__dirname,"angular","index.html")); // dirname is abs path to this folder
+});
 
 module.exports = app;
 
