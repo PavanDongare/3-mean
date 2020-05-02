@@ -22,7 +22,7 @@ mongoose.connect('mongodb+srv://pavan:isg39Vqal4YvodDJ@cluster0-rcm2k.mongodb.ne
 
 
 // posts saved as docs
-const Post = require("./models/post");
+const Post = require("./models/post");//
 
 
 // isg39Vqal4YvodDJ
